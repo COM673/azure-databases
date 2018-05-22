@@ -34,14 +34,14 @@ public class MyUI extends UI
         final VerticalLayout layout = new VerticalLayout();
 
         // Connect to database (need Azure conn strings)
-        String connectionString = "jdbc:sqlserver://customersserver1.database.windows.net:1433;"
-                                + "database=customersDB;" 
-                                + "user=stephen@customersserver1;" 
-                                + "password=Cabbage123;" 
-                                + "encrypt=true;"
-                                + "trustServerCertificate=false;" 
-                                + "hostNameInCertificate=*.database.windows.net;"
-                                + "loginTimeout=30;";
+        String connectionString = "jdbc:sqlserver://{your Database Server}.database.windows.net:1433;" + 
+                                  "database={your Database};" + 
+                                  "user={server admin login}@{your Database Server};" + 
+                                  "password={your password};" + 
+                                  "encrypt=true;" + 
+                                  "trustServerCertificate=false;" + 
+                                  "hostNameInCertificate=*.database.windows.net;" +
+                                  "loginTimeout=30;";
         try 
         {
             // Connect with JDBC driver to a database
