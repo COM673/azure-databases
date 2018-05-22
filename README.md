@@ -336,3 +336,4 @@ myGrid.addColumn(Customer::isPaid).setCaption("Paid");
 // Add the grid to the list
 layout.addComponent(myGrid);
 ```
+4. Save and run and browse to your app, check out the grid...
