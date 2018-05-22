@@ -316,9 +316,9 @@ while(rs.next())
 {   
 	// Add a new Customer instantiated with the fields from the record (that we want, we might not want all the fields, note how I skip the id)
 	customers.add(new Customer(rs.getString("first_name"), 
-								rs.getString("last_name"), 
-								rs.getBoolean("paid"), 
-								rs.getDouble("amount")));
+					rs.getString("last_name"), 
+					rs.getBoolean("paid"), 
+					rs.getDouble("amount")));
 }
 ```
 3. Now add the Grid code, this maps the list objects to columns
