@@ -63,8 +63,7 @@ insert into CustomerTable (id, first_name, last_name, amount, paid) values (20, 
 ## Write a JDBC console app to query database
 1. Use Maven to generate a new 'Hello World' type app: 
     1. archetype: **maven-archetype-quickstart**
-    1. Define value for property 'groupId': **ie.examples**
-    1. Define value for property 'artifactId': **JDBCConsoleApp**
+    1. Define value for property 'groupId': **ie.examples**    1. Define value for property 'artifactId': **JDBCConsoleApp**
     1. If you are having issues, it's the JDBCConsole app on Github 
 1. Do a Maven install: **mvn install** to ensure it all completed successfully
 1. If you get a surefire test error, you can just skip the tests with **mvn install -DskipTests** 
@@ -88,7 +87,7 @@ insert into CustomerTable (id, first_name, last_name, amount, paid) values (20, 
       1. Go to Azure and select the database we created earlier
       1. On the **Overview**, select Connection strings - **Show database connection strings**
       1. Copy the string in the **JDBC** tab
-      1. Add the following code to the src/main/java/ie/examples/App.java
+   1. Add the following code to the src/main/java/ie/examples/App.java
 ```java
 
 package ie.examples;
@@ -153,6 +152,30 @@ while(rs.next())
     		System.out.println(rs.getString("first_name") + " " + rs.getString("last_name") + " has not paid " + rs.getDouble("amount"));
 	}
 }
+```
+1. Save and and execute with **mvn exec:java -D"exec.mainClass"="ie.examples.App"** (it should recompile automatically). The output should be as follows (if you used the same sample data above)
+```
+Attempting to connect to the database...
+Carlee Attoe has not paid 76.41
+Jyoti Binch has paid 70.31
+Marianne Brazelton has not paid 58.34
+Arvin Polson has paid 21.32
+Ashely Muddiman has paid 18.14
+Joeann Sturzaker has not paid 91.8
+Karina Vanstone has not paid 55.31
+Scottie Venart has paid 2.53
+Tynan Hallick has paid 80.5
+Elenore Gillice has not paid 48.23
+Sianna Broader has paid 95.04
+Enrica Witchalls has not paid 56.78
+Tonie Doy has paid 66.27
+Georgie Dance has paid 77.76
+Abdel Leckey has paid 77.28
+Constantina Grimwood has not paid 56.72
+Regen Tomaszczyk has paid 50.55
+Lemmie Kilbourne has not paid 51.55
+Violetta Becerro has not paid 76.42
+Adham Frankcomb has not paid 76.35
 ```
 
 ## Write a Vaadin app to query the database
