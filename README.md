@@ -188,11 +188,11 @@ Now we'll follow the same broad steps above only we'll be running from a Vaadin 
 3. Add MS SQL Server as above in the console app
 ```xml
 <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
-		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<version>6.4.0.jre8</version>
-		</dependency>
+<dependency>
+	<groupId>com.microsoft.sqlserver</groupId>
+	<artifactId>mssql-jdbc</artifactId>
+	<version>6.4.0.jre8</version>
+</dependency>
 ```
 1. Do a Maven install to download all the Vaadin jars and resources needed
 2. Whenever you want to run and test your app, **mvn jetty:run** and go to **localhost:8080** in your browser
@@ -249,3 +249,90 @@ Elenore Gillice has not paid 48.23
 ## Data Grids in Vaadin apps
 Being able to display the data is fine, but we want it to look a bit fancier. To do that we'll use a Vaadin component called a Grid.  
 A Grid will let us format, sort and filter the columns if we need. We're not editing the data in this course, but we're only a few lines of code away from doing that if we want to.  
+Follow the previous sections to make a new app (put it alongside the others), called **VaadinGridApp**
+Change the code to add the Grid as follows:
+1. Add a new Java class file called 'Customer.java'. This is so we can map a ResultSet row to an object. As all our rows in the CustomerTable are about Customers, this is straightforward.
+	1. The Customer class has a private member variable to match each row (that we want to show in the Grid at least)
+	2. Add a constructor (that takes in each parameter and sets it)
+	3. Add getters and setters for each member variable (VS Code will do this for you)
+```java   
+package ie.examples;
+
+class Customer
+{
+    private String first_name;
+    private String last_name;
+    private boolean paid;
+    private double amount;
+
+    Customer(String first_name, String last_name, boolean paid, double amount)
+    {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.paid = paid;
+        this.amount = amount;
+    }
+	
+	public String getFirst_name() {
+		return first_name;
+	}
+	
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+	
+	public String getLast_name() {
+		return last_name;
+	}
+	
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
+	}
+	
+	public boolean isPaid() {
+		return paid;
+	}
+	
+	public void setPaid(boolean paid) {
+		this.paid = paid;
+	}
+	
+	public double getAmount() {
+		return amount;
+	}
+	
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+}
+```
+2. Modify the MyUI.java class to iterate over the ResultSet and create a List of Customer objects
+```java
+ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM customerTable;");
+// Convert the resultset that comes back into a List - we need a Java class to represent the data (Customer.java in this case)
+List<Customer> customers = new ArrayList<Customer>();
+// While there are more records in the resultset
+while(rs.next())
+{   
+	// Add a new Customer instantiated with the fields from the record (that we want, we might not want all the fields, note how I skip the id)
+	customers.add(new Customer(rs.getString("first_name"), 
+								rs.getString("last_name"), 
+								rs.getBoolean("paid"), 
+								rs.getDouble("amount")));
+}
+```
+3. Now add the Grid code, this maps the list objects to columns
+```java
+// Add my component, grid is templated with Customer
+Grid<Customer> myGrid = new Grid<>();
+// Set the items (List)
+myGrid.setItems(customers);
+// Configure the order and the caption of the grid
+myGrid.addColumn(Customer::getFirst_name).setCaption("Name");
+myGrid.addColumn(Customer::getLast_name).setCaption("Surname");
+myGrid.addColumn(Customer::getAmount).setCaption("Total Amount");
+myGrid.addColumn(Customer::isPaid).setCaption("Paid");
+
+// Add the grid to the list
+layout.addComponent(myGrid);
+```
