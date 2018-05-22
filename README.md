@@ -8,11 +8,11 @@ Azure has 'Table Storage' or Azure Cosmos DB, which are NoSQL databases.
 This course had a guest lecture on CosmosDB from Niamh Stockil (they are not on the exam though).  
 
 For relational databases, we can follow the following steps to set up a SQL Server database on Azure.  
-Note, that it is assumed you have already studied 
+Note, that it is assumed you have already studied SQL at some point (we're only using SELECT here though).
 
 ## Create the server (and the database)
 1. Log into the Azure Portal using your college email account
-2. 1. Create a resource
+2. Create a resource
 3. Search for SQL Database from Microsoft and select *Create*
    1. Database name should be obvious to you (if you call everything database1 you will suffer later)
    2. Ensure subscription is 'Azure for Students'
@@ -26,7 +26,7 @@ Note, that it is assumed you have already studied
 
 ## Query Editor
 1. Once the server/database is created, select the database and *Query Editor (preview)* on the left
-2. 1. Login (use the server admin login and password from the previous steps). Authorisation type is SQL server authentication
+2. Login (use the server admin login and password from the previous steps). Authorisation type is SQL server authentication
 3. The Query editor allows you to execute SQL without having to have a seperate program
 4. I used Mockaroo to generate some sample SQL for this tutorial (I edited true/false values to be 'true'/'false':
 
