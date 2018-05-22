@@ -12,23 +12,23 @@ Note, that it is assumed you have already studied
 
 ## Create the server (and the database)
 1. Log into the Azure Portal using your college email account
-1. Create a resource
-1. Search for SQL Database from Microsoft and select *Create*
+2. 1. Create a resource
+3. Search for SQL Database from Microsoft and select *Create*
    1. Database name should be obvious to you (if you call everything database1 you will suffer later)
-   1. Ensure subscription is 'Azure for Students'
-   1. Resource Group is either an existing one (if you made one earlier for an app and the database is to be used with that app) or a new one
-   1. Source is *Blank database*
-   1. Create a new server, ensure North Europe, a server admin login (use something other than admin and something you'll remember) and a new password for database access
-   1. *Not now* for elastic pool
-   1. Pricing tier - Basic is fine for what we are doing
-   1. Pin to dashboard should be ticked
-   1. Select *Create*
+   2. Ensure subscription is 'Azure for Students'
+   3. Resource Group is either an existing one (if you made one earlier for an app and the database is to be used with that app) or a new one
+   4. Source is *Blank database*
+   5. Create a new server, ensure North Europe, a server admin login (use something other than admin and something you'll remember) and a new password for database access
+   6. *Not now* for elastic pool
+   7. Pricing tier - Basic is fine for what we are doing
+   8. Pin to dashboard should be ticked
+   9. Select *Create*
 
 ## Query Editor
 1. Once the server/database is created, select the database and *Query Editor (preview)* on the left
-1. Login (use the server admin login and password from the previous steps). Authorisation type is SQL server authentication
-1. The Query editor allows you to execute SQL without having to have a seperate program
-1. I used Mockaroo to generate some sample SQL for this tutorial (I edited true/false values to be 'true'/'false':
+2. 1. Login (use the server admin login and password from the previous steps). Authorisation type is SQL server authentication
+3. The Query editor allows you to execute SQL without having to have a seperate program
+4. I used Mockaroo to generate some sample SQL for this tutorial (I edited true/false values to be 'true'/'false':
 
 ```sql
 create table CustomerTable (
@@ -61,33 +61,34 @@ insert into CustomerTable (id, first_name, last_name, amount, paid) values (20, 
 ```
 
 ## Write a JDBC console app to query database
-1. Use Maven to generate a new 'Hello World' type app: 
-    1. archetype: **maven-archetype-quickstart**
-    1. Define value for property 'groupId': **ie.examples**    1. Define value for property 'artifactId': **JDBCConsoleApp**
-    1. If you are having issues, it's the JDBCConsole app on Github 
-1. Do a Maven install: **mvn install** to ensure it all completed successfully
-1. If you get a surefire test error, you can just skip the tests with **mvn install -DskipTests** 
-1. To execute the code at any time, use the Maven command: **mvn exec:java -D"exec.mainClass"="ie.examples.App"**
+1. Use Maven to generate a new 'Hello World' type app:
+	1. archetype: **maven-archetype-quickstart**
+    2. 'groupId': **ie.examples**    
+    3. 'artifactId': **JDBCConsoleApp**
+    4. If you are having issues, it's the **JDBCConsole** app on Github 
+2. Do a Maven install: **mvn install** to ensure it all completed successfully
+3. If you get a *surefire* test error, you can just skip the tests with **mvn install -DskipTests**
+4. To execute the code at any time, use the Maven command: **mvn exec:java -D"exec.mainClass"="ie.examples.App"**
 
 ### Connecting to the database
 1. Because we are connecting to an Azure SQL Server database, we need some things:
-   1. The JDBC driver for MS SQL Server
-      1. Add the following dependency to the POM.xml for your project
-     ```xml
-	<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
-	<dependency>
-	    <groupId>com.microsoft.sqlserver</groupId>
-	    <artifactId>mssql-jdbc</artifactId>
-	    <version>6.4.0.jre8</version>
-	</dependency>
-     ```
-      1. Note, the *test* scope was removed, and default *compilation* scope should be used instead
-      1. JRE 8 is specified, there is a newer 1.9 driver but we don't need that right now
-   1. The JDBC connection strings from Azure, (and the server admin login and password)
+	1. The JDBC driver for MS SQL Server
+		1. Add the following dependency to the POM.xml for your project
+		```xml
+		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.4.0.jre8</version>
+		</dependency>
+		```
+		2. Note, the *test* scope was removed, and default *compilation* scope should be used instead
+      	3. JRE 8 is specified, there is a newer 1.9 driver but we don't need that right now
+   2. The JDBC connection strings from Azure, (and the server admin login and password)
       1. Go to Azure and select the database we created earlier
-      1. On the **Overview**, select Connection strings - **Show database connection strings**
-      1. Copy the string in the **JDBC** tab
-   1. Add the following code to the src/main/java/ie/examples/App.java
+      2. On the **Overview**, select Connection strings - **Show database connection strings**
+      3. Copy the string in the **JDBC** tab
+   3. Add the following code to the src/main/java/ie/examples/App.java
 ```java
 
 package ie.examples;
@@ -129,10 +130,10 @@ public class App
 }
 ```
    1. Save and do a **mvn install -DskipTests** and execute with **mvn exec:java -D"exec.mainClass"="ie.examples.App"**
-   1. If you get an error about not having the correct JDBC driver, go back to the step that added that to the POM and save the pom, do an Maven Clean and Maven Install in case it hasn't picked it up yet
+   2. If you get an error about not having the correct JDBC driver, go back to the step that added that to the POM and save the pom, do an Maven Clean and Maven Install in case it hasn't picked it up yet
       1. If you get an error about your IP not having access, go to the Azure portal, select the Database Overview page and **Set server firewall** from the menu:
-      1. The client IP address you are trying to connect from should be shown **Client IP address**
-      1. Select **Add client IP** and **Save**
+      2. The client IP address you are trying to connect from should be shown **Client IP address**
+      3. Select **Add client IP** and **Save**
 
 ### Querying the database and returning a ResultSet
 1. Add the following code immediately after where the connection object is set:
@@ -179,5 +180,72 @@ Adham Frankcomb has not paid 76.35
 ```
 
 ## Write a Vaadin app to query the database
+Now we'll follow the same broad steps above only we'll be running from a Vaadin app, not a console app
+1. Generate a new Vaadin app (place it alongside the JDBC Console App)
+2. The Maven command you can use is: mvn archetype:generate -DarchetypeArtifactId="**vaadin-archetype-application**" -DarchetypeGroupId="**com.vaadin**"
+	1. 'groupId': **ie.examples**
+	2. 'artifactId': **VaadinJDBCApp**
+3. Add MS SQL Server as above in the console app
+```xml
+<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.4.0.jre8</version>
+		</dependency>
+```
+1. Do a Maven install to download all the Vaadin jars and resources needed
+2. Whenever you want to run and test your app, **mvn jetty:run** and go to **localhost:8080** in your browser
+3. Now add the code to MyUI.java to talk to the database:
+	1. Add the Connection object to as a member variable of the class
+	```java
+	Connection connection = null;
+	```
+	1. Add the same connection string code as in the Console app (this will be unique to your Azure database) as a local variable in the **init** method
+	2. Now add the following code after the connection string is created:
+	```java
+	try 
+	{
+		// Connect with JDBC driver to a database
+		connection = DriverManager.getConnection(connectionString);
+		// Add a label to the web app with the message and name of the database we connected to 
+		layout.addComponent(new Label("Connected to database: " + connection.getCatalog()));
+	} 
+	catch (Exception e) 
+	{
+		// This will show an error message if something went wrong
+		layout.addComponent(new Label(e.getMessage()));
+	}
+	setContent(layout);
+	```
+1. Save, Maven Install, and run the app as a Jetty App locally (connect to localhost:8080)
+2. The output should appear:
+```
+Connected to database: customersDB
+```
+### Query a table and show the results
+Now we'll run a query and show the results as in the Console app. Add the following code immediately after the connection is made (instead of the layout.addComponent line that was there previously:
+```java
+ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM customerTable WHERE paid = 'false' ORDER BY AMOUNT DESC;");
+while(rs.next())
+{
+	layout.addComponent(new Label(rs.getString("first_name") + " " + rs.getString("last_name") + " has not paid " + rs.getDouble("amount")));  
+}
+```
+Save, Install and Jetty run. The resulting labels should appear in the webapp:
+```
+Joeann Sturzaker has not paid 91.8
+Violetta Becerro has not paid 76.42
+Carlee Attoe has not paid 76.41
+Adham Frankcomb has not paid 76.35
+Marianne Brazelton has not paid 58.34
+Enrica Witchalls has not paid 56.78
+Constantina Grimwood has not paid 56.72
+Karina Vanstone has not paid 55.31
+Lemmie Kilbourne has not paid 51.55
+Elenore Gillice has not paid 48.23
+```  
 
 ## Data Grids in Vaadin apps
+Being able to display the data is fine, but we want it to look a bit fancier. To do that we'll use a Vaadin component called a Grid.  
+A Grid will let us format, sort and filter the columns if we need. We're not editing the data in this course, but we're only a few lines of code away from doing that if we want to.  
