@@ -5,7 +5,6 @@ Two general types of database - relational (SQL) and non-relational (usually cal
 Azure can host databases from any vendor - either as IAAS (where you set up and configure everything yourself) or PAAS (where the databases is available as a service).  
 
 Azure has 'Table Storage' or Azure Cosmos DB, which are NoSQL databases.  
-This course had a guest lecture on CosmosDB from Niamh Stockil (they are not on the exam though).  
 
 For relational databases, we can follow the following steps to set up a SQL Server database on Azure.  
 Note, that it is assumed you have already studied SQL at some point (we're only using SELECT here though).
