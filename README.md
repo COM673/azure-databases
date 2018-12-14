@@ -336,3 +336,22 @@ myGrid.addColumn(Customer::isPaid).setCaption("Paid");
 layout.addComponent(myGrid);
 ```
 4. Save and run and browse to your app, check out the grid...
+
+
+## To get data from the grid
+```java
+Set<Customer> selected = myGrid.getSelectedItems();
+Label status = new Label("Starting Value", selectionMode.HTML);
+if (selected.size()==0){
+    status.setValue("<strong>Please select at least one room!</strong>");
+    return;
+} 
+
+for(Customer c : selected){
+    if (c.isPaid()==true){
+    	status.setValue("<strong>" + c.getFirst_name()+" " +c.getLast_name() +" owes money still.</strong>");
+        return;
+     }
+  }
+  ```
+  
